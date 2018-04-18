@@ -112,12 +112,17 @@
     </dependencies>
 
     <build>
+        <finalName>postgres-demo</finalName>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
             </plugin>
         </plugins>
-        <finalName>postgres-demo</finalName>
+        <resources>
+            <resource>
+                <directory>src/main/resource</directory>
+            </resource>
+        </resources>
     </build>
 </project>
