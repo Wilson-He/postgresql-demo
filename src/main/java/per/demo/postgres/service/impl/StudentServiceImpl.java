@@ -1,10 +1,10 @@
 package per.demo.postgres.service.impl;
 
-import per.demo.postgres.model.Student;
-import per.demo.postgres.dao.StudentDAO;
-import per.demo.postgres.service.StudentService;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
+import per.demo.postgres.dao.StudentDAO;
+import per.demo.postgres.model.Student;
+import per.demo.postgres.service.StudentService;
 
 import javax.annotation.Resource;
 

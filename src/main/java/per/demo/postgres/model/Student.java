@@ -1,9 +1,10 @@
 package per.demo.postgres.model;
 
 import com.baomidou.mybatisplus.annotations.TableName;
-import java.io.Serializable;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+
+import java.io.Serializable;
 
 
 /**

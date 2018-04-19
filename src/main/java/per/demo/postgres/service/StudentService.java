@@ -1,7 +1,7 @@
 package per.demo.postgres.service;
 
-import per.demo.postgres.model.Student;
 import com.baomidou.mybatisplus.service.IService;
+import per.demo.postgres.model.Student;
 
 /**
  * @author Wilson

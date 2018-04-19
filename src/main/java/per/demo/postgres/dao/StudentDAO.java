@@ -1,8 +1,8 @@
 package per.demo.postgres.dao;
 
-import per.demo.postgres.model.Student;
 import com.baomidou.mybatisplus.mapper.BaseMapper;
 import org.springframework.stereotype.Repository;
+import per.demo.postgres.model.Student;
 
 import java.util.List;
 import java.util.Map;
