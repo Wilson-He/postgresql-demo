@@ -1,36 +1,24 @@
 package per.demo.postgres.model;
 
-import com.baomidou.mybatisplus.annotations.TableName;
-import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-
-import java.io.Serializable;
-
+import lombok.ToString;
 
 /**
+ * StudentDTO
+ *
  * @author Wilson
- * @since 2018-04-17
+ * @date 18-5-4
  */
-@TableName("tb_student")
-@ApiModel("")
-public class Student implements Serializable {
-
+@ToString
+public class StudentDTO {
     @ApiModelProperty("")
-    private Integer id;
+    private Integer studentId;
 
     @ApiModelProperty("")
     private String name;
 
     @ApiModelProperty("")
     private Integer age;
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
 
     public String getName() {
         return name;
@@ -48,10 +36,18 @@ public class Student implements Serializable {
         this.age = age;
     }
 
+    public Integer getStudentId() {
+        return studentId;
+    }
+
+    public void setStudentId(Integer studentId) {
+        this.studentId = studentId;
+    }
+
     @Override
     public String toString() {
         return "Student{" +
-                "id=" + id +
+                "studentId=" + studentId +
                 ", name=" + name +
                 ", age=" + age +
                 "}";

@@ -10,8 +10,10 @@ import com.baomidou.mybatisplus.plugins.PerformanceInterceptor;
 import com.baomidou.mybatisplus.spring.MybatisSqlSessionFactoryBean;
 import com.github.pagehelper.PageInterceptor;
 import org.apache.ibatis.plugin.Interceptor;
+import org.apache.ibatis.transaction.TransactionFactory;
 import org.apache.ibatis.type.JdbcType;
 import org.mybatis.spring.mapper.MapperScannerConfigurer;
+import org.mybatis.spring.transaction.SpringManagedTransactionFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -30,8 +32,13 @@ import java.util.Properties;
  * @date 18-4-12
  */
 @Configuration
-@ComponentScan
+@ComponentScan(basePackageClasses = BaseConfig.class)
 public class MybatisConfig {
+    @Bean
+    public TransactionFactory transactionFactory(){
+        return new SpringManagedTransactionFactory();
+    }
+
     @Bean("sqlSessionFactory")
     public MybatisSqlSessionFactoryBean sqlSessionFactory(DataSource dataSource, GlobalConfiguration globalConfiguration) throws Exception {
         MybatisSqlSessionFactoryBean sqlSessionFactory = new MybatisSqlSessionFactoryBean();
@@ -52,7 +59,6 @@ public class MybatisConfig {
         sqlSessionFactory.setGlobalConfig(globalConfiguration);
         return sqlSessionFactory;
     }
-
     @Bean
     public MapperScannerConfigurer mapperScannerConfigurer() {
         MapperScannerConfigurer mapperScannerConfigurer = new MapperScannerConfigurer();

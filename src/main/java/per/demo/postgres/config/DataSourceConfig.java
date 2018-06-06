@@ -3,11 +3,14 @@ package per.demo.postgres.config;
 import com.alibaba.druid.pool.DruidDataSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Import;
+import org.springframework.jdbc.datasource.DataSourceTransactionManager;
+import org.springframework.transaction.PlatformTransactionManager;
+import org.springframework.transaction.interceptor.TransactionInterceptor;
 import per.demo.postgres.config.properties.DataSourceProperties;
 
 import javax.sql.DataSource;
 import java.sql.SQLException;
+import java.util.Properties;
 
 /**
  * DataSourceConfig
@@ -16,28 +19,40 @@ import java.sql.SQLException;
  * @date 18-4-12
  */
 @Configuration
-@Import(DataSourceProperties.class)
 public class DataSourceConfig {
 
     @Bean
-    public DataSource dataSource(DataSourceProperties properties) throws SQLException {
+    public DataSource dataSource(DataSourceProperties dataSourceProperties) throws SQLException {
         DruidDataSource dataSource = new DruidDataSource();
-        dataSource.setUrl(properties.getUrl());
-        dataSource.setUsername(properties.getUsername());
-        dataSource.setPassword(properties.getPassword());
-        dataSource.setFilters(properties.getFilters());
-        dataSource.setMaxActive(properties.getMaxActive());
-        dataSource.setInitialSize(properties.getInitialSize());
-        dataSource.setMaxWait(properties.getMaxWait());
-        dataSource.setMinIdle(properties.getMinIdle());
-        dataSource.setTimeBetweenEvictionRunsMillis(properties.getTimeBetweenEvictionRunsMillis());
-        dataSource.setMinEvictableIdleTimeMillis(properties.getMinEvictableIdleTimeMillis());
-        dataSource.setTestWhileIdle(properties.getTestWhileIdle());
-        dataSource.setTestOnReturn(properties.getTestOnReturn());
-        dataSource.setPoolPreparedStatements(properties.getPoolPreparedStatements());
-        dataSource.setMaxOpenPreparedStatements(properties.getMaxOpenPreparedStatements());
-        dataSource.setAsyncInit(properties.getAsyncInit());
+        dataSource.setUrl(dataSourceProperties.getUrl());
+        dataSource.setUsername(dataSourceProperties.getUsername());
+        dataSource.setPassword(dataSourceProperties.getPassword());
+        dataSource.setFilters(dataSourceProperties.getFilters());
+        dataSource.setMaxActive(dataSourceProperties.getMaxActive());
+        dataSource.setInitialSize(dataSourceProperties.getInitialSize());
+        dataSource.setMaxWait(dataSourceProperties.getMaxWait());
+        dataSource.setMinIdle(dataSourceProperties.getMinIdle());
+        dataSource.setTimeBetweenEvictionRunsMillis(dataSourceProperties.getTimeBetweenEvictionRunsMillis());
+        dataSource.setMinEvictableIdleTimeMillis(dataSourceProperties.getMinEvictableIdleTimeMillis());
+        dataSource.setTestWhileIdle(dataSourceProperties.getTestWhileIdle());
+        dataSource.setTestOnReturn(dataSourceProperties.getTestOnReturn());
+        dataSource.setPoolPreparedStatements(dataSourceProperties.getPoolPreparedStatements());
+        dataSource.setMaxOpenPreparedStatements(dataSourceProperties.getMaxOpenPreparedStatements());
+        dataSource.setAsyncInit(dataSourceProperties.getAsyncInit());
         return dataSource;
+    }
+
+
+    @Bean
+    public DataSourceTransactionManager transactionManager(DataSource dataSource){
+        return new DataSourceTransactionManager(dataSource);
+    }
+
+    @Bean
+    public  TransactionInterceptor transactionInterceptor(PlatformTransactionManager transactionManager){
+        Properties properties = new Properties();
+        properties.put("*","PROPAGATION_REQUIRED");
+        return new TransactionInterceptor(transactionManager,properties);
     }
 
 }
